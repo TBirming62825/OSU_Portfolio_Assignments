@@ -1,0 +1,11 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+  background-color: #44474e;
+}
+
+.deleteButton:hover, .editButton:hover {
+  color: rgb(145, 100, 88);
+}

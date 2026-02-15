@@ -1,0 +1,97 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #282c34;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: rgb(223, 161, 111);
+  color: rgb(0, 4, 255);
+  margin: 0% 0.25%;
+  padding: 0.05rem;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+header{
+  background-color:rgb(224, 124, 42);
+  color: rgb(0, 4, 255);
+  margin: 0% 0.25%;
+  padding: 0.05rem;
+}
+
+main{  
+  background-color:rgb(224, 124, 42);
+  color: rgb(0, 4, 255);
+  margin: 0% 0.25%;
+  padding: 2rem;
+}
+
+footer{
+  background-color:rgb(224, 124, 42);
+  color: rgb(11, 59, 11);
+  margin: 0% 0.25%;
+  padding: 0.05rem;
+}
+
+nav a {
+  background-color: rgb(240, 200, 127);
+  border: 15px solid rgb(224, 124, 42);
+  color: rgb(87, 24, 7);
+  margin: 2% 3%;
+  padding: 0.3rem;
+  text-decoration: none
+}
+
+nav a:hover{
+  background-color: rgb(240, 200, 127);
+  border: 15px solid rgb(224, 124, 42);
+  color: rgb(145, 100, 88);
+  margin: 2% 3%;
+  padding: 0.3rem;
+  text-decoration: none
+}
+
+table {
+  padding: 1rem;
+  border: 1.3px solid rgb(102, 97, 97);
+  border-collapse: collapse;
+  text-align: center;
+}
+
+tr th {
+  border: 2px solid rgb(102, 97, 97);
+  color: rgb(0, 4, 255);
+  padding: 0.5rem 2rem;
+}
+
+tr td {
+  border: 2px solid rgb(102, 97, 97);
+  color: lightblue; 
+  padding: 0.5rem;
+}
+
+fieldset{
+  padding: 1rem 2rem;
+  margin: 2% 3%;
+}
+
+input{
+  padding: 0.2rem
+}
+
+button{
+  padding: 0.15rem
+}
