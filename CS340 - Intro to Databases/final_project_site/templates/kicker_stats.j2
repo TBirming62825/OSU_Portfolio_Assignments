@@ -1,0 +1,126 @@
+{#
+File name: kicker_stats.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the kicker-stats page. This page displays StatsKicker
+    data for the kicker players stored in the database.
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Kicker Stats</h1>
+    <p class="intro-p">Stats for kickers in the database</p>
+    
+<div class = "kicker-stats">
+    <p class="intro-p">Add a new kicker stat below</p>
+    <form method="POST" action="/kicker-stats/add">
+        {# Separate table for create operations #}
+        <table class="centered-table">
+        <caption>Only games with no kicker stats for a given player are selectable</caption>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Week Number</th>
+                    <th>Year</th>
+                    <th>Home Team</th>
+                    <th>Away Team</th>
+                    <th>Extra Points Made</th>
+                    <th>Extra Point Attempts</th>
+                    <th>Field Goals Made</th>
+                    <th>Field Goal Attempts</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>          
+                {# table for creating new StatKicker row #}
+                <tr>
+                    <td>
+                        <select name="kicker_id" id="kicker_id">
+                            <option value="" disabled selected hidden>Select Kicker</option>
+                            {% for kicker in j2_kicker_stats | unique(attribute='Name') %}
+                            <option value = "{{kicker.player_id}}">{{kicker.Name}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="week" id="week" disabled>
+                            <option value="" disabled selected hidden>Select Week</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="year" id="year" disabled>
+                            <option value="" disabled selected hidden>Select Year</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" id="home_team_name" readonly>
+                        <input type="hidden" name="home_team_id" id="home_team_id">
+                    </td>
+                    <td>
+                        <input type="text" id="away_team_name" readonly>
+                        <input type="hidden" name="away_team_id" id="away_team_id">
+                    </td>
+                    <td><input type="number" name="extra_point_made" id="extra_point_made" class="six-char" min=0></td>
+                    <td><input type="number" name="extra_point_attempt" id="extra_point_attempt" class="six-char" min=0></td>
+                    <td><input type="number" name="field_goal_made" id="field_goal_made" class="six-char" min=0></td>
+                    <td><input type="number" name="field_goal_attempt" id="field_goal_attempt" class="six-char" min=0></td>
+                    <td><button type="submit">Add Kicker Stat</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div class="kicker_stats">
+    {# display table #}
+    <p class="intro-p">Existing kicker stats:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Opponent</th>
+                <th>Extra Point (Made/Attempt)</th>
+                <th>Field Goal (Made/Attempt)</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# For each row, print the column values #}
+            {% for stat in j2_kicker_stats %}
+            <tr>
+                <td>{{ stat.Name}}</td>
+                <td>{{ stat.Team}}</td>
+                <td>{{ stat.Opponent}}</td>
+                <td>{{ stat.extra_point_ma}}</td>
+                <td>{{ stat.field_goal_ma}}</td>
+                {# UPDATE form #}
+                <td>
+                    <a href="{{ url_for('update_kicker_stats', id=stat.kicker_stats_id) }}">
+                        Update
+                    </a>
+                </td>
+                    
+                {# DELETE form #}
+                <td>
+                    <form method="POST" action="/kicker-stats/delete">
+                        <input type="hidden" name="kicker_stats_id" value="{{ stat.kicker_stats_id }}">
+                        <button type="submit" onclick="return confirm('Delete this entry?')">Delete</button>
+                    </form>         
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- include JS -->
+<script src="{{ url_for('static', filename='kicker_stats.js') }}"></script>
+
+{% endblock %}

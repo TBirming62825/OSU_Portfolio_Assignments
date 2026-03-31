@@ -1,0 +1,61 @@
+{#
+File name: conference_division.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the conference-division page. This page displays Conference-Division
+    data for the teams stored in the database.
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Conference Division Data</h1>
+<div class="conferenceDivisionDescription">
+    <p class="intro-p">Please select the conference data you want displayed</p>
+
+  <form method="POST" action="/cd">
+      <label for="conference">Choose a conference to view teams:</label>
+
+      <select name="conference" id="conference">
+          <option value="All" {% if conference == 'All' %}selected{% endif %}>All</option>
+          <option value="AFC" {% if conference == 'AFC' %}selected{% endif %}>AFC</option>
+          <option value="NFC" {% if conference == 'NFC' %}selected{% endif %}>NFC</option>
+      </select> 
+
+      <input type="submit"
+            class="submitButton"
+            id="conferenceSubmitButton"
+            value="Get Teams"
+      </input>
+  </form>
+
+  {% if j2_teams %}
+    <table>
+      <thead>
+        <tr>
+              {% for key in j2_teams[0].keys() %}
+              <th>{{ key }}</th>
+              {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for team in j2_teams %}
+        <tr>
+          <td>{{ team.Team }}</td>
+          <td>{{ team.Home }}</td>
+          <td>{{ team.Conference }}</td>
+          <td>{{ team.Division }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+
+
+{% endblock %}

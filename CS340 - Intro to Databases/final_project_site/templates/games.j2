@@ -1,0 +1,101 @@
+{#
+File name: games.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the defensive-stats page. This page displays Games
+    data for the games stored in the database and has additional table to allow addition on games to the 
+    db as well as delete and update functionality
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Games</h1>
+<p class = "intro-p">List of Games recorded in the database.</p>
+
+<div class = display-table>
+    <form method="POST" action="/games/add">
+    {# Implemented separate table for add functionality and separate table for view/delete #}
+        <table class="games-table">
+            <thead>
+                {# For the table header row, we print the DB attribute names #}
+                <tr>
+                    <th>Home Team</th>
+                    <th>Points Scored (H)</th>
+                    <th>Away Team</th>
+                    <th>Points Scored (A)</th>
+                    <th>Week Number</th>
+                    <th>Year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>          
+                {# table for new game creation#}
+                <tr>
+                    <td>
+                        <select name="home_team_id" id="home_team_id">
+                            {% for team in j2_teams %}
+                            <option value = "{{team.team_id}}">{{team.team_name}}</option>
+                            {% endfor %}       
+                        </select> 
+                    </td>
+                    <td>
+                        <input type="number" name="home_points_scored" id="home_points_scored" class="six-char" min=0>
+                    </td>
+                    <td>
+                        <select name="away_team_id" id="away_team_id">
+                            {% for team in j2_teams %}
+                            <option value = "{{team.team_id}}">{{team.team_name}}</option>
+                            {% endfor %}       
+                        </select> 
+                    </td>
+                    <td><input type="number" name="away_points_scored" id="away_points_scored" class="six-char" min=0></td>
+                    <td><input type="number" name="week_number" id="week_number" class="six-char" min=1></td>
+                    <td><input type="number" name="year" id="year" value="2026" class="six-char" ></td>
+                    <td><button type="submit">Add Game</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div>
+    <table class="games-table">
+        <thead>
+            <tr>
+                <th>Home Team</th>
+                <th>Points Scored (H)</th>
+                <th>Away Team</th>
+                <th>Points Scored (A)</th>
+                <th>Week Number</th>
+                <th>Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# For each row, print the Home Team, Away Team, points scored for each, week number and year #}
+            {% for game in j2_games %}
+            <tr>
+                <td>{{ game.home_team}}</td>
+                <td>{{ game.home_points_scored}}</td>
+                <td>{{ game.away_team}}</td>
+                <td>{{ game.away_points_scored}}</td>
+                <td>{{ game.week_number}}</td>
+                <td>{{ game.year}}</td>
+                <td>
+                    <form method="POST" action="/games/delete">
+                        <input type="hidden" name="game_id" value="{{ game.game_id }}">
+                        <button type="submit" onclick="return confirm('Delete this game?')">Delete Game</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}  
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

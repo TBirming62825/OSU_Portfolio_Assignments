@@ -1,0 +1,40 @@
+{#
+File name: defensive_stats.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the teams page. This page displays 
+    data for the teams stored in the database.
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Teams Data</h1>
+<div class="teamsDescription">
+    <p class="intro-p">The following teams are found in the database</p>   
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Home</th>
+                <th>Player Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# For each row, print the column values #}
+            {% for team in j2_teams %}
+            <tr>
+                <td>{{ team.team_name }}</td>
+                <td>{{ team.team_home }}</td>
+                <td>{{ team.player_count }}</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

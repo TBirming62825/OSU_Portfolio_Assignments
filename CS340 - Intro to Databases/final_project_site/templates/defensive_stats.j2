@@ -1,0 +1,55 @@
+{#
+File name: defensive_stats.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the defensive-stats page. This page displays StatsDefensive
+    data for the teams stored in the database.
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Defensive Stats</h1>
+<div class="defensive_stats">
+    <p class="intro-p">Defensive Stats in the database</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Opponent</th>
+                <th>Points Allowed</th>
+                <th>Yards Allowed</th>
+                <th>Sacks</th>
+                <th>Fumbles Recovered</th>
+                <th>Interceptions</th>
+                <th>Defensive TDs</th>
+                <th>Blocked Punts</th>
+                <th>Safeties</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# For each row, print the column values #}
+            {% for defensive_stat in j2_defensive_stats %}
+            <tr>
+                <td>{{ defensive_stat.Team}}</td>
+                <td>{{ defensive_stat.Opponent}}</td>
+                <td>{{ defensive_stat.points_allowed}}</td>
+                <td>{{ defensive_stat.yards_allowed}}</td>
+                <td>{{ defensive_stat.sack}}</td>
+                <td>{{ defensive_stat.fumble_recover}}</td>
+                <td>{{ defensive_stat.defensive_interception}}</td>
+                <td>{{ defensive_stat.defensive_touchdown}}</td>               
+                <td>{{ defensive_stat.blocked_punt}}</td>
+                <td>{{ defensive_stat.safety}}</td>                
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{#
+File name: home.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the home page. 
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Home page</h1>
+<div class="homepageDescription">
+    <p class="intro-p">Your trusted source for Fantasy Football Statistics</p>
+</div>
+
+<div class="main_logo">
+    <img src="static/images/fantasy_football_logo.jpg" alt="Fantasy Football logo in blue shield">
+    <figcaption>Photo credit vecteezy.com</figcaption>
+</div>
+
+{% endblock %}

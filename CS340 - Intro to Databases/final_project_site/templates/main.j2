@@ -1,0 +1,50 @@
+{#
+File name: main.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the nav bar at the top of every page.
+
+Code Citations: The code in this file is a near copy of the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). The minor changes made to that file represent original work by 
+    the authors
+#}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CS340 - Final Project Group 110</title>
+        <link href={{ url_for('static', filename='style.css') }} rel='stylesheet'>
+    </head>
+    <body>
+        <nav>
+            Navigation: 
+            <a href="/">Home</a>
+            <a href="/cd">Conference/Division</a>
+            <a href="/teams">Teams</a>
+            <a href="/players">Players</a>
+            <a href="/games">Games</a>
+            <a href="/offensive-stats">Offensive Stats</a>
+            <a href="/kicker-stats">Kicker Stats</a>
+            <a href="/defensive-stats">Defensive Stats</a>
+            <form action="/reset" method="POST" style="display:inline;">
+                <input type="hidden" name="next" value="{{ request.full_path }}">
+                <button type="submit" class="nav-link-button"
+                    onclick="return confirm('Reset the DB to its original state?')">Reset DB</button>
+            </form>
+        </nav>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                 {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% block content %}
+    {% endblock %}
+    </body>
+</html>
+

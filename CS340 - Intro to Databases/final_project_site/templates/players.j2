@@ -1,0 +1,42 @@
+{#
+File name: players.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the players page. This page displays 
+    data for the players stored in the database.
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Players</h1>
+<div class="players">
+    <p class="intro-p">List of Players recorded in the database.</p>
+    <table>
+        <thead>
+            {# For the table header row, print the DB attribute name #}
+            <tr>
+                {% for key in j2_players[0].keys() %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {# For each row, print the column values #}
+            {% for player in j2_players %}
+            <tr>
+                <td>{{ player.Name}}</td>
+                <td>{{ player.Team}}</td>
+                <td>{{ player.Position}}</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

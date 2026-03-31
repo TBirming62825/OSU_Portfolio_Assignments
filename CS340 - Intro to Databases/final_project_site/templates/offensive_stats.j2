@@ -1,0 +1,66 @@
+{#
+File name: offensive_stats.j2
+
+Authors: Timothy Birmingham and Cory Hungate
+
+Description: Contains the jinja template for the offensive-stats page. This page displays StatsOffensive
+    data for the offesnive players stored in the database.
+
+Code Citations: The code in this file was primarily based on the example .j2 template provided in the Week 6 
+    (Exploration: web application technology). Changes made to that file represent original work by 
+    the authors
+#}
+
+{% extends "main.j2" %}
+{% block content %}
+
+<h1>Offensive Stats</h1>
+<div class="offensive_stats">
+    <p class="intro-p">Offensive stats for players in the database</p>
+    <table class="offensive-stats-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Opponent</th>
+                <th>Passing (Comp/Att)</th>
+                <th>Passing Yards</th>
+                <th>Passing TDs</th>
+                <th>Passing Ints</th>
+                <th>Rush Attempts</th>
+                <th>Rushing Yards</th>
+                <th>Rushing TDs</th>
+                <th>Receiving (Recpt/Target)</th>
+                <th>Receiving Yards</th>
+                <th>Receiving TDs</th>
+                <th>2 Point Conv.</th>
+                <th>Fumbles</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {# For each row, print the header's corresponding values into the table cells #}
+            {% for offensivestat in j2_offensivestats %}
+            <tr>
+                <td>{{ offensivestat.Name }}</td>
+                <td>{{ offensivestat.Team }}</td>
+                <td>{{ offensivestat.Opponent }}</td>
+                <td>{{ offensivestat.pass_ca if offensivestat.pass_ca is not none else '-' }}</td>
+                <td>{{ offensivestat.pass_yards if offensivestat.pass_yards is not none else '-' }}</td>
+                <td>{{ offensivestat.pass_touchdown if offensivestat.pass_touchdown is not none else '-' }}</td>
+                <td>{{ offensivestat.pass_interception if offensivestat.pass_interception is not none else '-' }}</td>
+                <td>{{ offensivestat.rush_attempt if offensivestat.rush_attempt is not none else '-' }}</td>
+                <td>{{ offensivestat.rush_yard if offensivestat.rush_yard is not none else '-' }}</td>
+                <td>{{ offensivestat.rush_touchdown if offensivestat.rush_touchdown is not none else '-' }}</td>
+                <td>{{ offensivestat.receiving_rt if offensivestat.receiving_rt is not none else '-' }}</td>
+                <td>{{ offensivestat.receiving_yard if offensivestat.receiving_yard is not none else '-' }}</td>
+                <td>{{ offensivestat.receiving_touchdown if offensivestat.receiving_touchdown is not none else '-' }}</td>
+                <td>{{ offensivestat.two_point_conversion if offensivestat.two_point_conversion is not none else '-' }}</td>
+                <td>{{ offensivestat.fumble if offensivestat.fumble is not none else '-' }}</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
